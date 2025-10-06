@@ -1,10 +1,14 @@
+package core;
+
 import java.util.ArrayList;
+import events.*;
 
 public class TurnManager {
     public int turn; //Track which turn it is
     public int playerTurn; //Track which clan is playing
     public ArrayList<Clan> clans;
     public ArrayList<Province> provinces;
+    public int eventRandomizer;
 
     public TurnManager(ArrayList<Clan> clans, ArrayList<Province> provinces) {
         this.clans = clans;
@@ -42,9 +46,19 @@ public class TurnManager {
     }
     //Remove one action from clans
     public void SimulateActions(Clan clan, Province province) {
-        TroopStrike nap = new TroopStrike(province, clan);
-        nap.triggerEvent();
+        int index = (int)(Math.random() * province.availableEvents.size());
+        Event event = province.availableEvents.get(index);
+        event.triggerEvent();
         actionUsed(clan);
     }
 
+    public void incomeUpdate() {
+        for (Clan clan : clans) {
+            for (Province province : clan.provinces) {
+                clan.income = clan.income + province.income;
+            }
+        }
+    }
+
 }
+
