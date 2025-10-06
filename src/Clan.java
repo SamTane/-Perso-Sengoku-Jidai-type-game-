@@ -23,6 +23,7 @@ public class Clan {
 
 
     public void addProvince(Province province) {
+
         provinces.add(province);
     }
 

@@ -1,7 +1,4 @@
-import java.util.ArrayList;
-import java.util.Arrays;
-
- class Event {
+class Event {
     public String name;
     public String description;
     public int id;
@@ -17,8 +14,6 @@ import java.util.Arrays;
     }
 
      public void triggerEvent() {
-        System.out.println("[" + clan.name + "] triggers event : |" + name + "| in " + province.name);
-        System.out.println(description);
      }
 
 }

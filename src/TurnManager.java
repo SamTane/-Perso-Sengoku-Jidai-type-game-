@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class TurnManager {
     public int turn; //Track which turn it is
@@ -43,9 +42,8 @@ public class TurnManager {
     }
     //Remove one action from clans
     public void SimulateActions(Clan clan, Province province) {
-        Event eventNap = new Event(0, "Lazy commanders",
-        "Commanders are too busy taking a nap...", province, clan);
-        eventNap.triggerEvent();
+        TroopStrike nap = new TroopStrike(province, clan);
+        nap.triggerEvent();
         actionUsed(clan);
     }
 
