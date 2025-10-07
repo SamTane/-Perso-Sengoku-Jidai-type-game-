@@ -1,6 +1,7 @@
 package core;
 
 import java.util.ArrayList;
+import java.lang.reflect.Array;
 
 public class Clan {
     public int id;
@@ -24,14 +25,8 @@ public class Clan {
 
 
 
-    public void addProvince(Province province) {
-
-        provinces.add(province);
-    }
-
-    public void removeProvince(Province province) {
-        provinces.remove(province);
-    }
+    public void addProvince(Province province) { provinces.add(province);}
+    public void removeProvince(Province province) { provinces.remove(province);}
 
     //Add or remove a province to the clan
 
