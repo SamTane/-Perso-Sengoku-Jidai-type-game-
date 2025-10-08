@@ -7,6 +7,7 @@ import events.*;
 public class Main {
     public static void main(String[] args) {
 
+
         //Clans :
         Clan clan1 = new Clan(1, "Central", 120, 0, 2);
         Clan clan2 = new Clan(2, "Bandits", 70, 0, 1);
@@ -16,18 +17,20 @@ public class Main {
 
 
         //Provinces :
-        Province province1 = new Province(1, "The Middle", new int[]{2, 3, 4, 5}, clan1, 60);
+        Province province1 = new Province(0, "The Middle", clan1, 60, new int[]{1, 2, 3, 4});
         clan1.addProvince(province1);
-        Province province2 = new Province(2, "Rififi Forest", new int[]{1, 3, 5}, clan2, 35);
+        Province province2 = new Province(1, "Rififi Forest",  clan2, 35, new int[]{0, 2, 4});
         clan2.addProvince(province2);
-        Province province3 = new Province(3, "Coco Hills", new int[]{1, 2, 4, 6}, clan3, 50);
+        Province province3 = new Province(2, "Coco Hills", clan3, 50, new int[]{0, 1, 3, 5});
         clan3.addProvince(province3);
-        Province province4 = new Province(4, "Porto Maestro", new int[]{1, 3, 5, 6}, clan4, 50);
+        Province province4 = new Province(3, "Porto Maestro", clan4, 50, new int[]{0, 2, 4, 5});
         clan4.addProvince(province4);
-        Province province5 = new Province(5, "Miko Mountains", new int[]{1, 3, 4}, clan5, 50);
+        Province province5 = new Province(4, "Miko Mountains", clan5, 50, new int[]{0, 1, 3});
         clan5.addProvince(province5);
-        Province province6 = new Province(6, "Talmud", new int[]{3, 4}, clan4, 50);
+        Province province6 = new Province(5, "Talmud", clan4, 50, new int[]{0, 2, 3});
         clan4.addProvince(province6);
+
+
 
         // Clans & provinces list
         Clan[] clans = {clan1, clan2, clan3, clan4, clan5};
@@ -35,7 +38,23 @@ public class Main {
         Province[] allProvinces = {province1, province2, province3, province4, province5, province6};
         ArrayList<Province> provinceList = new ArrayList<>(Arrays.asList(allProvinces));
 
+        MapManager mm = new MapManager(clanList, provinceList);
 
+        //neighbors
+        mm.neighborsSetting();
+
+        for (Clan clan : clans) {
+            System.out.println("[" + clan.name + "] Bordering clans are :");
+            for (Clan clanNeighbor : clan.clanNeighbors) {
+                System.out.println("    " + clanNeighbor.name + " :");
+                for (Province clanNeighborProvince : clanNeighbor.provinces) {
+                    if (clan.provinceNeighbors.contains(clanNeighborProvince)) {
+                        System.out.println("        P" + clanNeighborProvince.id + " " + clanNeighborProvince.name);
+                    }
+
+                }
+            }
+        }
 
         //Events
 
@@ -71,7 +90,7 @@ public class Main {
 
 
 
-
+/*
         // Turn
         TurnManager tm = new TurnManager(clanList, provinceList);
         for (int i = 0; i <= 2; i++) {
@@ -86,11 +105,9 @@ public class Main {
                 System.out.println("< " + clan.name + " owns " + clan.provinces.size() + " provinces : >");
                 for (Province province : clan.provinces) {
                     System.out.println(province.name + "." + " Borders :");
-                     for (int neighborId : province.neighbors) {
-                        for (Province p : allProvinces)
-                            if (p.id == neighborId)
-                                System.out.println(p.id + " : " + p.name + ".");
-                     }
+                    for (Province neighbor : province.neighbors) {
+                        System.out.println(neighbor.id + " : " + neighbor.name);
+                    }
                 }
                 System.out.println(clan.actions + " actions");
                  System.out.println(clan.golds + " G");
@@ -103,7 +120,7 @@ public class Main {
             tm.income();
 
 
-        }
+        }*/
     }
 
 }
