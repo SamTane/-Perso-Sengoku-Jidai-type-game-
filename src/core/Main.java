@@ -50,10 +50,6 @@ public class Main {
 
 
         //Events
-
-        /* Universal personal events : events that are in every provinces, are triggered by the owner,
-        targets them and have 1 effect */
-        // 0 = LazyCommanders, 1 = TroopStrike, 2 = Sabotage
         em.registerOtherEvents();
         em.addAvalaibleEvents();
         for (Clan clan : clans) {
@@ -81,19 +77,17 @@ public class Main {
                     System.out.print("No events");
                 }
                 System.out.println();
-
-
             }
-
-
         }
+        /*This script gives all clans borders, all clans events and in which province they can trigger this
+        event*/
 
 
 
 
 
 /*
-        // Turn
+        // Turn (OLD not updated with new systems)
         TurnManager tm = new TurnManager(clanList, provinceList);
         for (int i = 0; i <= 2; i++) {
             tm.nextTurn();

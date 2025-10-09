@@ -5,14 +5,13 @@ import java.util.ArrayList;
 import java.lang.reflect.Array;
 
 public abstract class Event {
-    public String name;
-    public int id;
-    public Clan source;
-    public ArrayList<Clan> targets;
-    public ArrayList<Integer> results;
-    public ArrayList<Clan> possibleSources;
-    public ArrayList<Province> holders;
-    public Province holder;
+    public String name; //name of the event
+    public int id; //id of the event
+    public Clan source; //what clan is triggering the event
+    public ArrayList<Clan> targets; //list of clans that are getting consequences from this event
+    public ArrayList<Integer> results; //each target must have a corresponding result (outcome)
+    public Province holder; //In which province is the event
+
 
     public Event (int id, String name, Clan source, Province holder) {
         this.id = id;
@@ -20,8 +19,6 @@ public abstract class Event {
         this.source = source;
         this.targets = new ArrayList<>();
         this.results = new ArrayList<>();
-        this.possibleSources = new ArrayList<>();
-        this.holders = new ArrayList<>();
         this.holder = holder;
 
     }
@@ -31,11 +28,15 @@ public abstract class Event {
     }
 
      public abstract void triggerEvent();
+    //method to trigger an event
 
     public void addTarget(Clan target, int result) {
         targets.add(target);
         results.add(result);
     } //Each target must have a corresponding result
+    //Target = which clan is targeted, and result = what consequences are they getting
+    //This way, multiple clans can be targeted by an event, and they can have different outcomes
+    //(like one clan losing gold and another clan gaining gold)
 
     public void removeTarget(Clan target, int result) {
         int index = targets.indexOf(target);
@@ -48,12 +49,5 @@ public abstract class Event {
     public boolean canBeTriggeredBy(Clan clan) {
         return true; // Default to always triggerable
     }
-
-
-    public void addHolder(Province holder) {holders.add(holder); }
-    public void removeHolder(Province holder) {holders.remove(holder); }
-    //Remove or add a province holding this event
-
-
 
 }

@@ -14,6 +14,8 @@ public class TroopStrike extends Event {
         this.holder = holder;
     }
 
+    //All event have a set of provinces that are chosen manually.
+    //This event is applied to all provinces, so we can use a loop, but this is an exception
     public static void register(ArrayList<Province> allProvinces) {
         for (Province province : allProvinces) {
             province.addEvent(new TroopStrike(province, province.owner));
