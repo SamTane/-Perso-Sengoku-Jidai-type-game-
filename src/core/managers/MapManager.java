@@ -1,4 +1,7 @@
-package core;
+package core.managers;
+
+import core.Clan;
+import core.Province;
 
 import java.util.ArrayList;
 
@@ -13,12 +16,12 @@ public class MapManager {
 
     public void neighborsSetting() {
         //Listes des provinces voisines d'une province.
-        for (int indexProvince = 0; indexProvince < provinces.size(); indexProvince++) {
-            for (int indexId = 0; indexId < provinces.get(indexProvince).neighborsID.length; indexId++) {
-                for (Province province : provinces) {
-                    if (provinces.get(indexProvince).neighborsID[indexId] == province.id) {
-                        if (!provinces.get(indexProvince).neighbors.contains(province)) {
-                            provinces.get(indexProvince).addNeighbor(province);
+        for (Province province : provinces) {
+            for (int neighborId : province.neighborsID) {
+                for (Province neighbor : provinces) {
+                    if (neighborId == neighbor.id) {
+                        if (!province.neighbors.contains(neighbor)) {
+                            province.addNeighbor(neighbor);
                         }
                     }
                 }

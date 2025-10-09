@@ -1,6 +1,9 @@
-package core;
+package core.managers;
 
 import java.util.ArrayList;
+
+import core.Clan;
+import core.Province;
 import events.*;
 
 public class TurnManager {
@@ -8,43 +11,45 @@ public class TurnManager {
     public int playerTurn; //Track which clan is playing
     public ArrayList<Clan> clans;
     public ArrayList<Province> provinces;
-    public int eventRandomizer;
 
     public TurnManager(ArrayList<Clan> clans, ArrayList<Province> provinces) {
         this.clans = clans;
         this.provinces = provinces;
     }
-    //Tracks the list of clans, useful for income and actions count
 
+    //+1 to the turn count
     public void nextTurn() {
         turn += 1;
     }
-    //+1 to the turn count
 
+
+    //Go back to player 0 turns, used at the end of everyone turn
     public void turnReset() {
         playerTurn = 0;
     }
-    //Go back to player 0 turns, used at the end of everyone turn
 
+    //Adds gold income to each clan ( used at the start of each turn)
     public void income() {
         for (Clan clan : clans) {
             clan.golds = clan.golds + clan.income;
         }
     }
-    //Used at the end of each turn, adds gold income to each clan at the start of the turn
 
+    //Put all clans at max actions
     public void resetActions() {
         for (Clan clan : clans){
             clan.actions = clan.maxActions;
         }
     }
-    //Put all clans at max actions
 
 
+    //Remove one action from clans
     public void actionUsed(Clan clan) {
         clan.actions -= 1;
     }
-    //Remove one action from clans
+
+
+
     public void SimulateActions(Clan clan, Province province) {
         int index = (int)(Math.random() * province.availableEvents.size());
         Event event = province.availableEvents.get(index);
@@ -58,10 +63,6 @@ public class TurnManager {
                 clan.income = clan.income + province.income;
             }
         }
-    }
-
-    public void addNeighbors() {
-
     }
 
 }

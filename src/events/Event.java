@@ -7,18 +7,23 @@ import java.lang.reflect.Array;
 public abstract class Event {
     public String name;
     public int id;
-    public Province province;
     public Clan source;
     public ArrayList<Clan> targets;
     public ArrayList<Integer> results;
+    public ArrayList<Clan> possibleSources;
+    public ArrayList<Province> holders;
+    public Province holder;
 
-    public Event (int id, String name, Province province, Clan source) {
+    public Event (int id, String name, Clan source, Province holder) {
         this.id = id;
         this.name = name;
-        this.province = province;
         this.source = source;
         this.targets = new ArrayList<>();
         this.results = new ArrayList<>();
+        this.possibleSources = new ArrayList<>();
+        this.holders = new ArrayList<>();
+        this.holder = holder;
+
     }
 
     public String getDescription(Clan target, int result) {
@@ -40,6 +45,14 @@ public abstract class Event {
         }
     } //Remove the target and it's corresponding result from the list
 
+    public boolean canBeTriggeredBy(Clan clan) {
+        return true; // Default to always triggerable
+    }
+
+
+    public void addHolder(Province holder) {holders.add(holder); }
+    public void removeHolder(Province holder) {holders.remove(holder); }
+    //Remove or add a province holding this event
 
 
 

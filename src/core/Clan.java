@@ -1,5 +1,8 @@
 package core;
 
+import events.*;
+import core.managers.*;
+
 import java.util.ArrayList;
 import java.lang.reflect.Array;
 
@@ -13,6 +16,7 @@ public class Clan {
     public int income;
     public int actions;
     public int maxActions; //I plan to add ways to have more actions
+    public ArrayList<Event> availableEvents;
 
 
     public Clan(int id, String name, int golds, int income, int maxActions) {
@@ -24,6 +28,7 @@ public class Clan {
         this.clanNeighbors = new ArrayList<>();
         this.income = income;
         this.maxActions = maxActions;
+        this.availableEvents = new ArrayList<>();
 
     }
 
@@ -38,5 +43,9 @@ public class Clan {
     //Add or remove a clanNeighbor
     public void addClanNeighbor(Clan clanNeighbor) { clanNeighbors.add(clanNeighbor);}
     public void removeClanNeighbor(Clan clanNeighbor) { clanNeighbors.remove(clanNeighbor);}
+
+    //Remove or add an available event
+    public void addAvailableEvent(Event availableEvent) {availableEvents.add(availableEvent); }
+    public void removeAvailableEvent(Event availableEvent) {availableEvents.remove(availableEvent); }
 
 }

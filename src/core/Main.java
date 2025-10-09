@@ -3,6 +3,9 @@ package core;
 import java.util.ArrayList;
 import java.util.Arrays;
 import events.*;
+import core.managers.*;
+import java.util.*;
+
 
 public class Main {
     public static void main(String[] args) {
@@ -39,10 +42,20 @@ public class Main {
         ArrayList<Province> provinceList = new ArrayList<>(Arrays.asList(allProvinces));
 
         MapManager mm = new MapManager(clanList, provinceList);
+        EventManager em = new EventManager(clanList, provinceList);
 
         //neighbors
         mm.neighborsSetting();
 
+
+
+        //Events
+
+        /* Universal personal events : events that are in every provinces, are triggered by the owner,
+        targets them and have 1 effect */
+        // 0 = LazyCommanders, 1 = TroopStrike, 2 = Sabotage
+        em.registerOtherEvents();
+        em.addAvalaibleEvents();
         for (Clan clan : clans) {
             System.out.println("[" + clan.name + "] Bordering clans are :");
             for (Clan clanNeighbor : clan.clanNeighbors) {
@@ -54,36 +67,25 @@ public class Main {
 
                 }
             }
-        }
-
-        //Events
-
-        /* Universal personal events : events that are in every provinces, are triggered by the owner,
-        targets them and have 1 effect */
-        // 0 = LazyCommanders, 1 = TroopStrike, 2 = Sabotage
-        Integer[] universalPersonalEvents = {0, 1, 2};
-        ArrayList<Integer> universalPersonalEventsList = new ArrayList<>(Arrays.asList(universalPersonalEvents));
-
-        for (Integer event : universalPersonalEventsList) {
-            if (event == 0) {
-                for (Province province : provinceList) {
-                    LazyCommanders lazy = new LazyCommanders(province, province.owner);
-                    lazy.addTarget(province.owner, 0);
-                    province.addEvent(lazy);
-            }
-            } else if (event == 1) {
-                for (Province province : provinceList) {
-                    TroopStrike strike = new TroopStrike(province, province.owner);
-                    strike.addTarget(province.owner, 0);
-                    province.addEvent(strike);
+            System.out.println(clan.name + " available events are :");
+            for (Province province : allProvinces) {
+                System.out.print(province.name + " : ");
+                boolean hasEvent = false;
+                for (Event provinceEvent : province.availableEvents) {
+                    if (clan.availableEvents.contains(provinceEvent)) {
+                        System.out.print(provinceEvent.name + ", ");
+                        hasEvent = true;
+                    }
                 }
-            } else {
-                for (Province province : provinceList) {
-                    Sabotage sabotage = new Sabotage(province, province.owner);
-                    sabotage.addTarget(province.owner, 0);
-                    province.addEvent(sabotage);
+                if (!hasEvent) {
+                    System.out.print("No events");
                 }
+                System.out.println();
+
+
             }
+
+
         }
 
 
