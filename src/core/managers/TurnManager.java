@@ -2,9 +2,9 @@ package core.managers;
 
 import java.util.ArrayList;
 
-import core.Clan;
+import core.clans.Clan;
 import core.Province;
-import events.*;
+import core.events.*;
 
 public class TurnManager {
     public int turn; //Track which turn it is
@@ -50,19 +50,29 @@ public class TurnManager {
 
 
 
-    public void SimulateActions(Clan clan, Province province) {
-        int index = (int)(Math.random() * province.availableEvents.size());
-        Event event = province.availableEvents.get(index);
+    public void SimulateActions(Clan clan, Event event) {
         event.triggerEvent();
         actionUsed(clan);
     }
 
+    //Updates the gold income of all clans
     public void incomeUpdate() {
         for (Clan clan : clans) {
+            int provincesIncome = 0;
+            int otherIncomes = 0;
             for (Province province : clan.provinces) {
-                clan.income = clan.income + province.income;
+                provincesIncome = provincesIncome + province.income;
             }
+            clan.income = otherIncomes + provincesIncome;
+            //Later I will add other source income, otherIncomes is placeholder
         }
+    }
+
+    public static void showGolds(Clan clan) {
+        if (clan.golds < 0) {
+            clan.golds = 0;
+        }
+        System.out.println(clan.name + " Golds : " + clan.golds);
     }
 
 }

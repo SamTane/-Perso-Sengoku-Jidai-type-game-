@@ -1,13 +1,15 @@
 package core.managers;
 
 
-import core.Clan;
+import core.clans.Clan;
 import core.Province;
-import events.*;
-import java.util.*;
+import core.events.*;
+import core.events.ownerEvents.LazyCommanders;
+import core.events.outsiderEvents.Pillage;
+import core.events.ownerEvents.Sabotage;
+import core.events.ownerEvents.TroopStrike;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class EventManager {
 
@@ -19,11 +21,12 @@ public class EventManager {
         this.provinces = provinces;
     }
 
-    //Trigger all register() methods from events.
+    //Trigger all register() methods from core.events.
     public void registerOtherEvents() {
         LazyCommanders.register(provinces);
         Sabotage.register(provinces);
         TroopStrike.register(provinces);
+        Pillage.register(provinces, clans);
     }
 
 //add all availableEvents to all clans
@@ -32,7 +35,7 @@ public class EventManager {
             clan.availableEvents.clear();
             for (Province province : provinces) {
                 for (Event possibleEvent : province.availableEvents) {
-                    if (possibleEvent.canBeTriggeredBy(clan)) {
+                    if (possibleEvent.canBeTriggeredBy(clan) && possibleEvent.source == clan) {
                         clan.addAvailableEvent(possibleEvent);
                     }
                 }

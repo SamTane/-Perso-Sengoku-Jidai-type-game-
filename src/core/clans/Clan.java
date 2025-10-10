@@ -1,10 +1,9 @@
-package core;
+package core.clans;
 
-import events.*;
-import core.managers.*;
+import core.Province;
+import core.events.*;
 
 import java.util.ArrayList;
-import java.lang.reflect.Array;
 
 public class Clan {
     public int id;

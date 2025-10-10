@@ -1,6 +1,6 @@
 package core.managers;
 
-import core.Clan;
+import core.clans.Clan;
 import core.Province;
 
 import java.util.ArrayList;

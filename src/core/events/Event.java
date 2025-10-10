@@ -1,8 +1,8 @@
-package events;
+package core.events;
 import core.*;
+import core.clans.Clan;
 
 import java.util.ArrayList;
-import java.lang.reflect.Array;
 
 public abstract class Event {
     public String name; //name of the event

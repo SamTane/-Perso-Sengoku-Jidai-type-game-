@@ -2,9 +2,10 @@ package core;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import events.*;
+
+import core.clans.Clan;
+import core.events.*;
 import core.managers.*;
-import java.util.*;
 
 
 public class Main {
@@ -12,11 +13,11 @@ public class Main {
 
 
         //Clans :
-        Clan clan1 = new Clan(1, "Central", 120, 0, 2);
-        Clan clan2 = new Clan(2, "Bandits", 70, 0, 1);
-        Clan clan3 = new Clan(3, "The Craftmen", 100, 0, 2);
-        Clan clan4 = new Clan(4, "Happy Merchants", 200, 0, 2);
-        Clan clan5 = new Clan(5, "Nun Institute", 100, 0, 3);
+        Clan clan1 = new Clan(0, "Central", 120, 0, 2);
+        Clan clan2 = new Clan(1, "Bandits", 70, 0, 1);
+        Clan clan3 = new Clan(2, "The Craftmen", 100, 0, 2);
+        Clan clan4 = new Clan(3, "Happy Merchants", 200, 0, 2);
+        Clan clan5 = new Clan(4, "Nun Institute", 100, 0, 3);
 
 
         //Provinces :
@@ -51,7 +52,7 @@ public class Main {
 
         //Events
         em.registerOtherEvents();
-        em.addAvalaibleEvents();
+        /*
         for (Clan clan : clans) {
             System.out.println("[" + clan.name + "] Bordering clans are :");
             for (Clan clanNeighbor : clan.clanNeighbors) {
@@ -63,7 +64,7 @@ public class Main {
 
                 }
             }
-            System.out.println(clan.name + " available events are :");
+            System.out.println(clan.name + " available core.events are :");
             for (Province province : allProvinces) {
                 System.out.print(province.name + " : ");
                 boolean hasEvent = false;
@@ -74,49 +75,39 @@ public class Main {
                     }
                 }
                 if (!hasEvent) {
-                    System.out.print("No events");
+                    System.out.print("No core.events");
                 }
                 System.out.println();
             }
-        }
-        /*This script gives all clans borders, all clans events and in which province they can trigger this
+        }*/
+        /*This script gives all clans borders, all clans core.events and in which province they can trigger this
         event*/
 
 
-
-
-
-/*
-        // Turn (OLD not updated with new systems)
         TurnManager tm = new TurnManager(clanList, provinceList);
-        for (int i = 0; i <= 2; i++) {
-            tm.nextTurn();
-            tm.resetActions();
-            tm.incomeUpdate();
-            System.out.println("************");
+        for (int i = 0; i <= 2; i++) { //Number of turns
+            tm.nextTurn(); //+1 turn at the start of the loop
+            tm.resetActions(); //Each clans actions are reset to max at the start of the turn
+            tm.incomeUpdate(); //NEEDS CORRECTION Each clan income is updated at the start of the turn
+            System.out.println("\n \n \n \n************");
             System.out.println("** Turn " + tm.turn + " **");
             System.out.println("************");
             for (Clan clan : clans) {
-
-                System.out.println("< " + clan.name + " owns " + clan.provinces.size() + " provinces : >");
-                for (Province province : clan.provinces) {
-                    System.out.println(province.name + "." + " Borders :");
-                    for (Province neighbor : province.neighbors) {
-                        System.out.println(neighbor.id + " : " + neighbor.name);
-                    }
-                }
+                System.out.println(" \n ");
+                System.out.println("< " + clan.name + ">");
                 System.out.println(clan.actions + " actions");
                  System.out.println(clan.golds + " G");
                 do {
-                    int indexProvinces = (int)(Math.random() * clan.provinces.size());
-                    tm.SimulateActions(clan, clan.provinces.get(indexProvinces));
+                    em.addAvalaibleEvents();
+                    int IndexEvent = (int)(Math.random() * clan.availableEvents.size());
+                    Event event = clan.availableEvents.get(IndexEvent);
+                    System.out.println();
+                    tm.SimulateActions(clan, event);
                     System.out.println(clan.actions + " actions left.");
                 } while (clan.actions > 0);
             }
             tm.income();
-
-
-        }*/
+        }
     }
 
 }

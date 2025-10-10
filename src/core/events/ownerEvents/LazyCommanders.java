@@ -1,8 +1,8 @@
-package events;
+package core.events.ownerEvents;
 import core.*;
-
+import core.clans.Clan;
+import core.events.Event;
 import java.util.ArrayList;
-import java.lang.reflect.Array;
 
 
 public class LazyCommanders extends Event {
@@ -14,10 +14,11 @@ public class LazyCommanders extends Event {
     }
 
     //All event have a set of provinces that are chosen manually.
-    //This event is applied to all provinces, so we can use a loop, but this is an exception
     public static void register(ArrayList<Province> allProvinces) {
-        for (Province province : allProvinces) {
-            province.addEvent(new LazyCommanders(province, province.owner));
+        for (Province province : allProvinces) {     //This event is applied to all provinces
+            Event event = new core.events.ownerEvents.LazyCommanders(province, province.owner); //This event is always triggered by the province owner
+            event.addTarget(province.owner, 0); //This event only affect the owner
+            province.addEvent(event);
         }
     }
 
@@ -44,13 +45,13 @@ public class LazyCommanders extends Event {
                 System.out.println(getDescription(target, result));
                 target.actions -= 1;
             }
-            }
         }
+    }
 
     @Override
     public boolean canBeTriggeredBy(Clan clan) {
-        if (clan == holder.owner) {
-            return true; // Owner only event
+        if (clan == holder.owner && clan.actions > 1) {
+            return true; // Owner only event, can only be triggered if actions are more than 1
         }
         else {
             return false;

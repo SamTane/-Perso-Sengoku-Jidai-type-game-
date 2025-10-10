@@ -1,16 +1,17 @@
-package events;
+package core.events.ownerEvents;
 import core.*;
-import core.managers.*;
+import core.clans.Clan;
+import core.managers.TurnManager;
+import core.events.Event;
 
 import java.util.ArrayList;
-import java.lang.reflect.Array;
 
 
-public class TroopStrike extends Event {
+public class Sabotage extends Event {
 
     public Province holder;
-    public TroopStrike(Province holder, Clan source) {
-        super(0, "Troop Strike!", source, holder);
+    public Sabotage(Province holder, Clan source) {
+        super(1, "Sabotage!", source, holder);
         this.holder = holder;
     }
 
@@ -18,14 +19,18 @@ public class TroopStrike extends Event {
     //This event is applied to all provinces, so we can use a loop, but this is an exception
     public static void register(ArrayList<Province> allProvinces) {
         for (Province province : allProvinces) {
-            province.addEvent(new TroopStrike(province, province.owner));
+            Event event = new Sabotage(province, province.owner);
+            event.addTarget(province.owner, 0);
+            province.addEvent(event);
+
         }
     }
 
     @Override
     public String getDescription(Clan target, int result) {
         if (result == 0) {
-            return "Troops are on a strike in " + holder.name  + "!";
+            return "A rival clan spy made a fuss in " + holder.name  + "! " +
+                    "\n- 30 gold !";
         } else {
             return " ";
         }
@@ -40,8 +45,13 @@ public class TroopStrike extends Event {
             int result = results.get(i);
             if (result == 0) {
                 System.out.println(getDescription(target, result));
+                target.golds -= 30;;
+                TurnManager.showGolds(target);
             }
         }
+
+
+
     }
     @Override
     public boolean canBeTriggeredBy(Clan clan) {
@@ -52,6 +62,4 @@ public class TroopStrike extends Event {
             return false;
         }
     }
-
-
 }

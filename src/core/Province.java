@@ -1,7 +1,9 @@
 package core;
 
 import java.util.ArrayList;
-import events.*;
+
+import core.clans.Clan;
+import core.events.*;
 
 public class Province {
     public int id;
