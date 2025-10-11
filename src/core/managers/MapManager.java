@@ -1,7 +1,7 @@
 package core.managers;
 
 import core.clans.Clan;
-import core.Province;
+import core.provinces.Province;
 
 import java.util.ArrayList;
 
@@ -13,6 +13,14 @@ public class MapManager {
         this.clans = clans;
         this.provinces = provinces;
     }
+
+    /* public void ownershipSetting() {
+        int i = 0;
+        for (Clan clan clans) {
+
+            if (clan.)
+        }
+    } */
 
     public void neighborsSetting() {
         //Listes des provinces voisines d'une province.

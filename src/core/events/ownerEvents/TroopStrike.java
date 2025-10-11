@@ -1,7 +1,7 @@
 package core.events.ownerEvents;
-import core.*;
 import core.clans.Clan;
 import core.events.Event;
+import core.provinces.Province;
 
 import java.util.ArrayList;
 

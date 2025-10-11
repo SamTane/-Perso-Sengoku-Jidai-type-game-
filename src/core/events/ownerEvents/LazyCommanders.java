@@ -1,7 +1,8 @@
 package core.events.ownerEvents;
-import core.*;
 import core.clans.Clan;
 import core.events.Event;
+import core.provinces.Province;
+
 import java.util.ArrayList;
 
 
@@ -28,7 +29,7 @@ public class LazyCommanders extends Event {
     @Override
     public String getDescription(Clan target, int result) {
         if (result == 0) {
-            return "Commanders are taking are goofing around in " + holder.name;
+            return "Commanders are goofing around in " + holder.name;
         } else {
             return " ";
         }

@@ -1,8 +1,8 @@
 package core.events.outsiderEvents;
-import core.*;
 import core.clans.Clan;
-import core.managers.TurnManager;
+import core.utils.TurnUtils;
 import core.events.Event;
+import core.provinces.Province;
 
 import java.util.ArrayList;
 
@@ -23,7 +23,7 @@ public class Pillage extends Event {
         for (Province province : allProvinces) {     //This event is applied to all provinces
             for (Clan clan : allClans) {
                 if ( clan != province.owner && clan.provinceNeighbors.contains(province)) {
-                    Event event = new core.events.outsiderEvents.Pillage(province, clan);
+                    Event event = new Pillage(province, clan);
                     event.addTarget(province.owner, 0);
                     event.addTarget(clan, 1);
                     province.addEvent(event);
@@ -41,7 +41,7 @@ public class Pillage extends Event {
     @Override
     public String getDescription(Clan target, int result) {
         if (result == 0) {
-            return source.name + " are pillaging " + holder.name + "!\n" +
+            return  "Pillaging goods in " + holder.name + "!\n" +
                     source.name + " stole 15 golds from " + holder.owner.name + "!";
         }  else if (result == 1) {
             return " ";
@@ -60,10 +60,10 @@ public class Pillage extends Event {
             if (result == 0) {
                 System.out.println(getDescription(target, result));
                 target.golds -= 15;
-                TurnManager.showGolds(target);
+                TurnUtils.showGolds(target);
             } else if (result == 1) {
                 target.golds += 15;
-                TurnManager.showGolds(target);
+                TurnUtils.showGolds(target);
             }
         }
     }

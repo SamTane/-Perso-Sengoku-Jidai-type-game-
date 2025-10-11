@@ -2,7 +2,7 @@ package core.managers;
 
 
 import core.clans.Clan;
-import core.Province;
+import core.provinces.Province;
 import core.events.*;
 import core.events.ownerEvents.LazyCommanders;
 import core.events.outsiderEvents.Pillage;
@@ -22,10 +22,12 @@ public class EventManager {
     }
 
     //Trigger all register() methods from core.events.
-    public void registerOtherEvents() {
+    public void registerOwnerEvents() {
         LazyCommanders.register(provinces);
         Sabotage.register(provinces);
         TroopStrike.register(provinces);
+    }
+    public void registerOutsiderEvents() {
         Pillage.register(provinces, clans);
     }
 

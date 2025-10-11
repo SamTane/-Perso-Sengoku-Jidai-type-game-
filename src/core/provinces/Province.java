@@ -1,4 +1,4 @@
-package core;
+package core.provinces;
 
 import java.util.ArrayList;
 
@@ -20,6 +20,7 @@ public class Province {
         this.neighborsID = neighborsID;
         this.neighbors = new ArrayList<>();
         this.owner = owner;
+        owner.addProvince(this);
         this.availableEvents = new ArrayList<>();
         this.income = income;
     }

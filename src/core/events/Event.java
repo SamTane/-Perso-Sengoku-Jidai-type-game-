@@ -1,6 +1,6 @@
 package core.events;
-import core.*;
 import core.clans.Clan;
+import core.provinces.Province;
 
 import java.util.ArrayList;
 

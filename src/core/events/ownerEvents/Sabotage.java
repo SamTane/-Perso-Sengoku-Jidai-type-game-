@@ -1,8 +1,8 @@
 package core.events.ownerEvents;
-import core.*;
 import core.clans.Clan;
-import core.managers.TurnManager;
+import core.utils.TurnUtils;
 import core.events.Event;
+import core.provinces.Province;
 
 import java.util.ArrayList;
 
@@ -46,7 +46,7 @@ public class Sabotage extends Event {
             if (result == 0) {
                 System.out.println(getDescription(target, result));
                 target.golds -= 30;;
-                TurnManager.showGolds(target);
+                TurnUtils.showGolds(target);
             }
         }
 
