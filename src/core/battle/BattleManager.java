@@ -1,4 +1,6 @@
 package core.battle;
+import core.battle.battleSkills.BattleSkill;
+import core.battle.battleSkills.MeleeAttack;
 import core.clans.*;
 import core.utils.GameInitialization;
 import java.util.Collections;
@@ -19,6 +21,7 @@ public class BattleManager {
         GameInitialization gInit = new GameInitialization();
         ArrayList<Clan> clans = gInit.getClans();
         ArrayList<Commander> commanders = gInit.getCommanders();
+        MeleeAttack.Register(commanders); //Add MeleeAttack to every melee commander
         //commander1 = BattleUtils.getCommander(commanders);
         //commander2 = BattleUtils.getCommander(commanders);
         ArrayList<Tile> sideA = new ArrayList<>();
@@ -59,6 +62,53 @@ public class BattleManager {
                     }
                 }
                 indexSide = 1;
+            }
+
+
+        boolean skillDone = false;
+        for (ArrayList<Tile> side : sides) {
+                for (Tile tile : side) {
+                    if (tile.commander != null) {
+                        skillDone = false;
+                        System.out.println(tile.commander.name);
+                        int index = 0;
+                        for (BattleSkill battleSkill : tile.commander.battleSkills) {
+                            index++;
+                            System.out.println("Skill " + index + " : "  + battleSkill.name);
+                            System.out.println("Possible targets :");
+                            for (int possibleTarget : battleSkill.possibleTargets) {
+                                System.out.println(possibleTarget);
+                            }
+                                    for (int i = 0; i < battleSkill.maxTargets; i++) {
+                                        do {
+                                            int randomTarget = ThreadLocalRandom.current().nextInt(1, 7);
+                                            int tileId = randomTarget - 1; // because list is 0-based
+
+                                            if (battleSkill.possibleTargets.contains(randomTarget)) {
+                                                if (side == sideA) {
+                                                    Tile enemyTile = sideB.get(tileId);
+                                                    if (enemyTile.commander != null) { // <---- ADD THIS CHECK
+                                                        battleSkill.addTarget(enemyTile, i);
+                                                        battleSkill.triggerBattleSkill();
+                                                        skillDone = true;
+                                                    }
+                                                } else {
+                                                    Tile enemyTile = sideA.get(tileId);
+                                                    if (enemyTile.commander != null) { // <---- ADD THIS CHECK TOO
+                                                        battleSkill.addTarget(enemyTile, i);
+                                                        battleSkill.triggerBattleSkill();
+                                                        skillDone = true;
+                                                    }
+                                                }
+                                            }
+                                        } while (!skillDone);
+                                    }
+
+
+                            }
+                        }
+
+                }
             }
 
 
