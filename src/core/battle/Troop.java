@@ -5,8 +5,8 @@ public class Troop {
     public int hp;
     public int attack;
     public int speed;
-    boolean isRanged;
-    boolean canRetaliate;
+    public boolean isRanged;
+    public boolean canRetaliate;
 
     public Troop(String name, int hp, int attack, int speed, boolean isRanged, boolean canRetaliate){
         this.name = name;

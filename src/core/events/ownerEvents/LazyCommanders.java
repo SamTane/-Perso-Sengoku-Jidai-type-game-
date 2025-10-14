@@ -17,7 +17,7 @@ public class LazyCommanders extends Event {
     //All event have a set of provinces that are chosen manually.
     public static void register(ArrayList<Province> allProvinces) {
         for (Province province : allProvinces) {     //This event is applied to all provinces
-            Event event = new core.events.ownerEvents.LazyCommanders(province, province.owner); //This event is always triggered by the province owner
+            Event event = new LazyCommanders(province, province.owner); //This event is always triggered by the province owner
             event.addTarget(province.owner, 0); //This event only affect the owner
             province.addEvent(event);
         }

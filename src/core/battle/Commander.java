@@ -1,5 +1,6 @@
 package core.battle;
 
+import core.battle.battleSkills.BattleSkill;
 import core.clans.*;
 
 import java.util.ArrayList;
@@ -19,6 +20,7 @@ public class Commander {
     public float offenseModifier;
     public float defenseModifier;
     public boolean used;
+    public ArrayList<BattleSkill> battleSkills;
 
     public static int clampStat(int commanderLevel) {
             if (commanderLevel < 1) {
@@ -47,6 +49,10 @@ public class Commander {
                 0.4f, 0.36f, 0.33f));
         this.defenseModifier = defenseModifiers.get(this.defenseLevel);
         this.used = false;
+        this.battleSkills = new ArrayList<>();
 
     }
+    public void addBattleSkill(BattleSkill battleSkill) {battleSkills.add(battleSkill); }
+    public void removeBattleSkill(BattleSkill battleSkill) { battleSkills.remove(battleSkill); }
 }
+
