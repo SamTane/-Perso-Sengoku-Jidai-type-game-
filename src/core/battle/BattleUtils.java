@@ -1,5 +1,9 @@
 package core.battle;
 
+import java.util.ArrayList;
+import java.util.Scanner;
+
+
 public class BattleUtils {
 
     public BattleUtils(){
@@ -46,5 +50,26 @@ public class BattleUtils {
             System.out.println(cAttacker.name + " : " + cAttacker.currentTroops + "/" + cAttacker.maxTroops);
             System.out.println(cAttacker.name + " attacks " + cDefender.name);
         }
+    }
+
+    public static Commander getCommander(ArrayList<Commander> commanders){
+        Scanner scanner = new Scanner(System.in);
+        Commander commander1 = null;
+        boolean chosen = false;
+        do {
+            System.out.println("Choose your commander by it's name !");
+            String commanderName = scanner.nextLine();
+            for (Commander commander : commanders) {
+                if (commander.name.equals(commanderName)) {
+                    commander1 = commander;
+                    chosen = true;
+                    break;
+                }
+            }
+            if (!chosen) {
+                System.out.println("Commander not found ");
+            }
+        } while (chosen == false);
+        return commander1;
     }
 }

@@ -2,6 +2,7 @@ package core.managers;
 
 import java.util.ArrayList;
 
+import core.battle.Commander;
 import core.clans.*;
 import core.events.*;
 import core.other.Player;
@@ -12,16 +13,17 @@ public class TurnManager {
 
     ArrayList<Province> provinces;
     ArrayList<Clan> clans;
+    ArrayList<Commander> commanders;
     EventManager em;
 
-    public TurnManager(ArrayList<Clan> clans, ArrayList<Province> provinces, EventManager em) {
+    public TurnManager(ArrayList<Clan> clans, ArrayList<Province> provinces, EventManager em, ArrayList<Commander> commanders) {
         this.clans = clans;
         this.provinces = provinces;
         this.em = em;
     }
 
     public void turnLoop() {
-        TurnUtils tUtils = new TurnUtils(clans, provinces);
+        TurnUtils tUtils = new TurnUtils(clans, provinces, commanders);
         Player player = new Player(clans.get(0));
         Clan playerClan = player.getPlayerClan();
         PlayerTurnManager pTurn = new PlayerTurnManager(playerClan, tUtils, clans, provinces);

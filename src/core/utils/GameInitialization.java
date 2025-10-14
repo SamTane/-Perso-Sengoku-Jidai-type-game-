@@ -3,6 +3,8 @@ package core.utils;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import core.battle.Commander;
+import core.battle.Troop;
 import core.clans.*;
 import core.provinces.*;
 import core.events.*;
@@ -11,6 +13,7 @@ public class GameInitialization {
 
     private ArrayList<Clan> clans;
     private ArrayList<Province> provinces;
+    private ArrayList<Commander> commanders;
 
     public GameInitialization() {
 
@@ -34,14 +37,33 @@ public class GameInitialization {
 
         Province pMikoMountains = new MikoMountains(cNunInstitute);//Nun Institute
 
+        //Commanders :
+        this.commanders = new ArrayList<>();
+
+        Troop cannonFodder = new Troop("Cannon Fodders", 30, 10, 100, false, true);
+
+        Commander testChan = new Commander("Test-Chan", cBandits, cannonFodder, 500, 4, 4, 4, 1);
+        Commander testKun = new Commander("Test-Kun", cCentral, cannonFodder, 500, 4, 4, 4, 1);
+        commanders.add(testChan);
+        commanders.add(testKun);
+
         // Clans & provinces list
         this.clans = new ArrayList<>(Arrays.asList(cCentral, cBandits, cTheCraftmen, cHappyMerchants, cNunInstitute));
         this.provinces = new ArrayList<>(Arrays.asList(pTheMiddle, pRififiForest, pCocoHills, pPortoMaestro, pMikoMountains, pTalmud));
+
+        for (Clan clan : clans) {
+            for (Commander commander : commanders) {
+                if (commander.owner == clan) {
+                    clan.addCommander(commander);
+                }
+            }
+        }
 
 
     }
     public ArrayList<Clan> getClans() { return clans; }
     public ArrayList<Province> getProvinces() { return provinces; }
+    public ArrayList<Commander> getCommanders() {return commanders; }
 
 
     public void basicStateOfTheGame() {

@@ -2,6 +2,7 @@ package core.utils;
 
 import java.util.ArrayList;
 
+import core.battle.Commander;
 import core.clans.Clan;
 import core.provinces.Province;
 import core.events.*;
@@ -11,8 +12,9 @@ public class TurnUtils {
     public int playerTurn; //Track which clan is playing
     public ArrayList<Clan> clans;
     public ArrayList<Province> provinces;
+    public ArrayList<Commander> commanders;
 
-    public TurnUtils(ArrayList<Clan> clans, ArrayList<Province> provinces) {
+    public TurnUtils(ArrayList<Clan> clans, ArrayList<Province> provinces, ArrayList<Commander> commanders) {
         this.clans = clans;
         this.provinces = provinces;
     }
@@ -73,6 +75,10 @@ public class TurnUtils {
             clan.golds = 0;
         }
         System.out.println(clan.name + " Golds : " + clan.golds);
+    }
+
+    public static void setupCommanders() {
+
     }
 
 }

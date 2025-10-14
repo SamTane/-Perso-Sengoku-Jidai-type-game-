@@ -1,5 +1,6 @@
 package core.clans;
 
+import core.battle.Commander;
 import core.provinces.Province;
 import core.events.*;
 
@@ -16,6 +17,7 @@ public class Clan {
     public int actions;
     public int maxActions; //I plan to add ways to have more actions
     public ArrayList<Event> availableEvents;
+    public ArrayList<Commander> commanders;
 
 
     public Clan(int id, String name, int golds, int income, int maxActions) {
@@ -25,6 +27,7 @@ public class Clan {
         this.provinces = new ArrayList<>();
         this.provinceNeighbors = new ArrayList<>();
         this.clanNeighbors = new ArrayList<>();
+        this.commanders = new ArrayList<>();
         this.income = income;
         this.maxActions = maxActions;
         this.availableEvents = new ArrayList<>();
@@ -46,5 +49,10 @@ public class Clan {
     //Remove or add an available event
     public void addAvailableEvent(Event availableEvent) {availableEvents.add(availableEvent); }
     public void removeAvailableEvent(Event availableEvent) {availableEvents.remove(availableEvent); }
+
+    //remove or add a commander
+    public void addCommander(Commander commander) {commanders.add(commander); }
+    public void removeCommander(Commander commander) {commanders.remove(commander); }
+
 
 }

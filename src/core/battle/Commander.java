@@ -18,6 +18,7 @@ public class Commander {
     public int id;
     public float offenseModifier;
     public float defenseModifier;
+    public boolean used;
 
     public static int clampStat(int commanderLevel) {
             if (commanderLevel < 1) {
@@ -45,6 +46,7 @@ public class Commander {
         ArrayList<Float> defenseModifiers = new ArrayList<>(Arrays.asList(1f, 1f, 0.8f, 0.66f, 0.57f, 0.5f, 0.44f,
                 0.4f, 0.36f, 0.33f));
         this.defenseModifier = defenseModifiers.get(this.defenseLevel);
+        this.used = false;
 
     }
 }

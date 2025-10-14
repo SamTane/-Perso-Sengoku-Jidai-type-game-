@@ -2,6 +2,7 @@ package core;
 
 import java.util.ArrayList;
 
+import core.battle.Commander;
 import core.clans.*;
 import core.events.*;
 import core.managers.*;
@@ -17,6 +18,7 @@ public class Main {
         GameInitialization gInit = new GameInitialization();
         ArrayList<Clan> clanList = gInit.getClans(); //Creating clans
         ArrayList<Province> provinceList = gInit.getProvinces(); //Creating provinces
+        ArrayList<Commander> commanderList = gInit.getCommanders();
 
         MapManager mm = new MapManager(clanList, provinceList);
         mm.neighborsSetting(); //Assigning neighbors
@@ -33,7 +35,7 @@ public class Main {
         */
 
         //Turn Loop
-        TurnManager tm = new TurnManager(clanList, provinceList, em);
+        TurnManager tm = new TurnManager(clanList, provinceList, em, commanderList);
         tm.turnLoop();
     }
 
